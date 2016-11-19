@@ -39,10 +39,10 @@ typedef enum
 
 typedef enum
 {
-	W3O_VALUE_INTEGER	= 0,
-	W3O_VALUE_REAL		= 1,
-	W3O_VALUE_UNREAL	= 2,
-	W3O_VALUE_STRING	= 3
+	W3O_VALUE_INTEGER = 0,
+	W3O_VALUE_REAL = 1,
+	W3O_VALUE_UNREAL = 2,
+	W3O_VALUE_STRING = 3
 } W3O_ValueType;
 
 typedef union
@@ -54,41 +54,41 @@ typedef union
 
 typedef struct
 {
-	char 			valueId[4];
-	W3O_ValueType 	valueType;
+	char valueId[4];
+	W3O_ValueType valueType;
 	union
 	{
 		W3O_Data;
-		void* 		pointer[1];
+		void* pointer[1];
 	};
-	W3O_INT 		footer;
+	W3O_INT footer;
 } W3O_Value;
 
 typedef struct
 {
-	char 			valueId[4];
-	W3O_ValueType 	valueType;
-	W3O_INT 		dataLevel,dataLetter;	// doodads, abilities, upgrades
+	char valueId[4];
+	W3O_ValueType valueType;
+	W3O_INT dataLevel,dataLetter;	// doodads, abilities, upgrades
 	W3O_Data;
-	W3O_INT 		footer;
+	W3O_INT footer;
 } W3O_ValueExtended;
 
 typedef struct
 {
-	char 		srcId[4],newId[4];
-	W3O_INT 	valueCount;
-	char 		*value;
+	char srcId[4],newId[4];
+	W3O_INT valueCount;
+	char *value;
 } W3O_Object;
 
 typedef struct
 {
-	W3O_INT 	objectCount;
-	W3O_Object 	*object;
+	W3O_INT objectCount;
+	W3O_Object *object;
 } W3O_Objects;
 
 typedef struct
 {
-	W3O_INT 	fileVersion;
+	W3O_INT fileVersion;
 	W3O_FileType fileType;
 	union
 	{
@@ -101,17 +101,17 @@ typedef struct
 	KeywordTree *tree;
 } W3O_File;
 
-W3O_File* 			W3O_new_file ();
-W3O_Result			W3O_read_to_file (char *src,size_t len,const W3O_FileType fileType,W3O_File *dest);
-W3O_Result			W3O_write_from_file (const W3O_File *src,char **dest,size_t *len);
-W3O_Object*			W3O_file_get_object (const W3O_File *f,const char *id);
-W3O_Result 			W3O_file_append_file (W3O_File *dest,W3O_File *src);
-void 				W3O_destroy_file (W3O_File *f);
+W3O_File* W3O_new_file ();
+W3O_Result W3O_read_to_file (char *src,size_t len,const W3O_FileType fileType,W3O_File *dest);
+W3O_Result W3O_write_from_file (const W3O_File *src,char **dest,size_t *len);
+W3O_Object* W3O_file_get_object (const W3O_File *f,const char *id);
+W3O_Result W3O_file_append_file (W3O_File *dest,W3O_File *src);
+void W3O_destroy_file (W3O_File *f);
 
-W3O_Result			W3O_objects_append_objects (W3O_Objects *dest,W3O_Objects *src,W3O_File *parent);
-W3O_Object*			W3O_objects_get_object (W3O_Objects *src,W3O_INT i);
+W3O_Result W3O_objects_append_objects (W3O_Objects *dest,W3O_Objects *src,W3O_File *parent);
+W3O_Object* W3O_objects_get_object (W3O_Objects *src,W3O_INT i);
 
-W3O_Value*			W3O_object_get_value (W3O_Object *o,W3O_INT i);
-W3O_ValueExtended*	W3O_object_get_value_ex (W3O_Object *o,W3O_INT i);
+W3O_Value* W3O_object_get_value (W3O_Object *o,W3O_INT i);
+W3O_ValueExtended* W3O_object_get_value_ex (W3O_Object *o,W3O_INT i);
 
 #endif //ifndef _W3OLIB_H_
